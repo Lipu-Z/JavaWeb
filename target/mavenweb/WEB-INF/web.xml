@@ -8,12 +8,20 @@
          metadata-complete="true">
 
   <servlet>
-    <servlet-name>MyServlet</servlet-name>
+    <servlet-name>ServletLogin</servlet-name>
     <servlet-class>main</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ServletInsert</servlet-name>
+    <servlet-class>InsertUser</servlet-class>
+  </servlet>
   <servlet-mapping>
-    <servlet-name>MyServlet</servlet-name>
+    <servlet-name>ServletLogin</servlet-name>
     <url-pattern>/loginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ServletInsert</servlet-name>
+    <url-pattern>/insertServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>
