@@ -23,7 +23,7 @@ public class main extends HttpServlet{
             response.setContentType("text/html");
             response.getWriter().println("Login Success!!!");
         } else {
-            response.sendRedirect("insertuser.jsp");
+            response.sendRedirect("index.jsp");
         }
     }
 
