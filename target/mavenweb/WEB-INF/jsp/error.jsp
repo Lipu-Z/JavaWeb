@@ -1,17 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: LZHONG
-  Date: 10/25/2017
-  Time: 11:58 AM
+  Date: 10/23/2017
+  Time: 10:02 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hello page</title>
+    <title>Error</title>
 </head>
-
 <body>
-${string}
+
+<h2>Error when insertion</h2>
+
 </body>
 </html>

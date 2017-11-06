@@ -31,7 +31,7 @@ public class StudentService {
             return false;
         }
     }
-    /*public ArrayList<Student> showAllStudent(){
+    public ArrayList<Student> showAllStudent(){
         ArrayList<Student> list = null;
         try{
             list = studentDao.showAllStudent();
@@ -39,5 +39,14 @@ public class StudentService {
             e.printStackTrace();
         }
         return list;
-    }*/
+    }
+
+    public boolean deleteStudent(int idunique){
+        try{
+            if(studentDao.deleteStudent(idunique)) return true;
+            return false;
+        } catch (Exception e){
+            return false;
+        }
+    }
 }

@@ -1,11 +1,9 @@
 package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import entity.Student;
 import service.StudentService;
@@ -19,13 +17,15 @@ public class StudentController {
 
     @RequestMapping(value = "/student", method = RequestMethod.GET)
     public ModelAndView student() {
-        return new ModelAndView("student", "command", new Student());
+        ModelAndView mv = new ModelAndView("student", "command", new Student());
+        mv.addObject("studentNumber", service.showAllStudent().size());
+        return mv;
     }
 
     @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
     public String addStudent(@ModelAttribute("command") Student student,
                              ModelMap model) {
-        if(service.insertUser(student.getName(), student.getAge(), student.getId())) {
+        if (service.insertUser(student.getName(), student.getAge(), student.getId())) {
             model.addAttribute("name", student.getName());
             model.addAttribute("age", student.getAge());
             model.addAttribute("id", student.getId());
@@ -36,7 +36,31 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/consultStudent", method = RequestMethod.GET)
-    public String consultStudent() {
-        return "error";
+    public ModelAndView consultStudent() {
+        ModelAndView mv = new ModelAndView("consultStudent");
+        mv.addObject("studentList", service.showAllStudent());
+        return mv;
+    }
+
+    @RequestMapping(value = "/deleteStudent", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView deleteStudent(@RequestParam(value = "idunique") int idunique) {
+        if (service.deleteStudent(idunique)) {
+            return new ModelAndView("redirect:/consultStudent");
+        } else {
+            return new ModelAndView("redirect:/consultStudent");
+        }
+
+    }
+
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public ModelAndView welcomepage() {
+        ModelAndView mv = new ModelAndView("welcomePage");
+        mv.addObject("string", "hello from you sb");
+        return mv;
+    }
+
+    @RequestMapping(value = "/back2main", method = RequestMethod.GET )
+    public ModelAndView back2MainPage() {
+        return new ModelAndView("redirect:/student");
     }
 }

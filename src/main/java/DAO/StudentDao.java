@@ -17,15 +17,7 @@ public class StudentDao {
         pstmt.setString(1, name);
         pstmt.setInt(2, age);
         pstmt.setInt(3, id);
-        if (pstmt.executeUpdate() != 0) {
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
-            return true;
-        } else {
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
-            return false;
-        }
+        return verifyExecuteUpdate(pstmt.executeUpdate(), pstmt, conn);
     }
     public ArrayList<Student> showAllStudent() throws ClassNotFoundException, SQLException{
         ArrayList<Student> studentList = new ArrayList<Student>();
@@ -35,11 +27,26 @@ public class StudentDao {
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
-            studentList.add(new Student(rs.getString(2), rs.getInt(3),rs.getInt(4)));
+            studentList.add(new Student(rs.getInt(1),rs.getString(2), rs.getInt(3),rs.getInt(4)));
         }
         rs.close();
         pstmt.close();
         conn.close();
         return studentList;
+    }
+    public boolean deleteStudent(int idunique)throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "lip", "1049");
+        String sql = "delete from studentList where ID=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1,idunique);
+        return verifyExecuteUpdate(pstmt.executeUpdate(), pstmt, conn);
+    }
+
+    public boolean verifyExecuteUpdate(int rs, PreparedStatement pstmt,  Connection conn )throws ClassNotFoundException, SQLException{
+        if (pstmt != null) pstmt.close();
+        if (conn != null) conn.close();
+        if(rs!=0) return true;
+        return false;
     }
 }
