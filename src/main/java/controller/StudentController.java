@@ -22,6 +22,11 @@ public class StudentController {
         return mv;
     }
 
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public void home(){
+
+    }
+
     @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
     public String addStudent(@ModelAttribute("command") Student student,
                              ModelMap model) {
@@ -49,7 +54,6 @@ public class StudentController {
         } else {
             return new ModelAndView("redirect:/consultStudent");
         }
-
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
